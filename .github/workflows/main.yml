@@ -12,11 +12,33 @@ env:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
+  Edit-or-config-checks:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Cloning repo
+      uses: actions/checkout@v4
+    - name: Running checks
+      uses: editorconfig-checker/action-editorconfig-checker@main
+    - run: editorconfig-checker
+
+  # Markdon-checks:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #   - name: Clonning repo
+  #     uses: actions/checkout@v4
+  #   - name: Run markdown lint
+  #     uses: nosborn/github-action-markdown-cli@v3.5.0
+  #     with:
+  #       files: .
+  #       config_file: .markdownlint.yaml
+  #       dot: true
+
   # This workflow contains a single job called "build"
   Build:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
     container: gradle:6-jdk11
+    needs: [Edit-or-config-checks]
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -96,24 +118,3 @@ jobs:
         path: .
     - name: Execute performance test
       run: bash ci/performance-test.sh
-
-  Edit-or-config-checks:
-    runs-on: ubuntu-latest
-    steps:
-    - name: Cloning repo
-      uses: actions/checkout@v4
-    - name: Running checks
-      uses: editorconfig-checker/action-editorconfig-checker@main
-    - run: editorconfig-checker
-
-  Markdon-checks:
-    runs-on: ubuntu-latest
-    steps:
-    - name: Clonning repo
-      uses: actions/checkout@v4
-    - name: Run markdown lint
-      uses: nosborn/github-action-markdown-cli@v3.5.0
-      with:
-        files: .
-        config_file: .markdownlint.yaml
-        dot: true
