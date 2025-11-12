@@ -105,3 +105,15 @@ jobs:
     - name: Running checks
       uses: editorconfig-checker/action-editorconfig-checker@main
     - run: editorconfig-checker
+
+  Markdon-checks:
+    runs-on: ubuntu-lates
+    steps:
+    - name: Clonning repo
+      uses: actions/checkout@v4
+    - name: Run markdown lint
+      uses: nosborn/github-action-markdown-cli@v3.5.0
+      with:
+        files: .
+        config_file: .markdownlint.yaml
+        dot: true
