@@ -1,0 +1,8 @@
+example/micronaut/ReadyController.java
+ example.micronaut.ReadyController
+example/micronaut/RootController.java
+ example.micronaut.RootController
+example/micronaut/Application.java
+ example.micronaut.Application
+example/micronaut/HelloController.java
+ example.micronaut.HelloController
