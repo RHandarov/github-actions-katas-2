@@ -107,7 +107,7 @@ jobs:
     - run: editorconfig-checker
 
   Markdon-checks:
-    runs-on: ubuntu-lates
+    runs-on: ubuntu-latest
     steps:
     - name: Clonning repo
       uses: actions/checkout@v4
