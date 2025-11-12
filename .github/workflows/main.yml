@@ -96,3 +96,10 @@ jobs:
         path: .
     - name: Execute performance test
       run: bash ci/performance-test.sh
+
+  Edit-or-config-checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: editorconfig-checker/action-editorconfig-checker@main
+      - run: editorconfig-checker
