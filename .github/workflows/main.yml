@@ -118,3 +118,14 @@ jobs:
         path: .
     - name: Execute performance test
       run: bash ci/performance-test.sh
+
+  Sonar-cloud-check:
+    runs-on: ubuntu-latest
+    needs: [Performance-test]
+    steps:
+    - name: Clonning repo
+      uses: actions/checkout@v4
+    - name: SonarQube Scan
+      uses: SonarSource/sonarqube-scan-action@<action version or sha1> # Ex: v4.1.0 or sha1, See the latest version at https://github.com/marketplace/actions/official-sonarqube-scan
+      env:
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
