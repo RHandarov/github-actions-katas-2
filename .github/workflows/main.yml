@@ -14,11 +14,20 @@ env:
 jobs:
   security:
     runs-on: ubuntu-latest
+    container: gradle:6-jdk11
     steps:
     - uses: actions/checkout@v4
+    - name: Cache Gradle packages
+      uses: actions/cache@v3
+      with:
+        path: ${{github.workspace}}/app/.gradle/caches
+        key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+        restore-keys: |
+            ${{ runner.os }}-gradle-
     - name: Run snyk
       working-directory: ${{github.workspace}}/app
       run: |
+        ./gradlew build
         npm install -g snyk
         snyk auth ${{ secrets.SNYK_TOKEN }}
         snyk test
