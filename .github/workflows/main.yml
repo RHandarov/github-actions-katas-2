@@ -28,6 +28,8 @@ jobs:
       working-directory: ${{github.workspace}}/app
       run: |
         ./gradlew build
+        apt-get update
+        apt-get install npm
         npm install -g snyk
         snyk auth ${{ secrets.SNYK_TOKEN }}
         snyk test
